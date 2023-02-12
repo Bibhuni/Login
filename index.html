@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+</head>
+<body>    
+    <section class="main-box">
+        <div class="left-box">
+            <h1>Register user</h1>
+            <form action="userRegister.php" method="post" id="register">
+                <label>Your name:</label>
+                <input type="text" name="name" id="name">
+                <label>Your email:</label>
+                <input type="email" name="email" id="email">
+                <label>Mobile number:</label>
+                <input type="number" name="number" id="number">
+                <label>Password:</label>
+                <input type="password" id="password">
+                <label>Re-type Password:</label>
+                <input type="password" name="password" id="re-password">
+                <center>
+                    <button type="submit" name="Register">Create User</button>
+                    <div id="error" class="error"></div>
+                </center>
+            </form>
+        </div>
+        <div class="right-box">
+            <h1>Login</h1>
+            <form action="userLogin.php" method="post" id="login">
+                <label>Your Email or Phone number:</label>
+                <input type="text" name="email" id="eid">
+                <label>Password:</label>
+                <input type="password" name="password" id="pass">
+                <center><button type="submit" name="Login">Login</button></center>
+                <div class="error" id="er"></div>
+            </form>
+        </div>
+    </section>
+    <script>
+        const password = document.getElementById('password');
+        const repassword = document.getElementById('re-password');
+        const register = document.getElementById('register');
+        const errorElement = document.getElementById('error');
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const number = document.getElementById('number');
+        const eid = document.getElementById('eid');
+        const erElement = document.getElementById('er');
+
+
+        register.addEventListener('submit',(e)=>{
+            let message = []
+            if(name.value === '' || name.value == null){
+                message.push('*Enter your name please.');
+            }else if(email.value === '' || email.value == null){
+                message.push('*Enter your email please.');
+            }else if(number.value === '' || number.value == null){
+                message.push('*Enter your number please.');
+            }else if(number.value.length != 10){
+                message.push('*Invalid Phone Number.');
+            }else if(password.value === '' || password.value == null){
+                message.push('*Enter your password please.');
+            }else if(password.value != repassword.value){
+                message.push('*Password did not match');
+            }else if(repassword.value.length<5){
+                message.push('*Password is too small');
+            }
+            if(message.length > 0){
+                e.preventDefault()
+                errorElement.innerText = message.join(',')
+            }
+        })
+        login.addEventListener('submit',(e)=>{
+            let message = []
+            if(eid.value === '' || name.value == null){
+                message.push('*Enter your emai or Phone number please.');
+            }
+            if(message.length > 0){
+                e.preventDefault()
+                erElement.innerText = message.join(',')
+            }
+
+        })
+    </script>
+    </body>
+</html>
